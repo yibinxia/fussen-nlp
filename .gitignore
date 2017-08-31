@@ -1,0 +1,9 @@
+/target/
+*.pyc
+*.o
+*.so
+.DS_Store
+.settings/
+.project
+.classpath
+
