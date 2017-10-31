@@ -11,4 +11,9 @@
   		<scope>test</scope>
   	</dependency>
   </dependencies>
+  <!-- Comment out the following if build is not needed -->
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <testSourceDirectory>test/src</testSourceDirectory>
+  </build>
 </project>
