@@ -1,0 +1,70 @@
+//
+// Fussen NLP build specification for Gradle
+//
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+// Gradle java plugin
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+group = 'com.fussen.nlp'
+version = '0.0.1-SNAPSHOT'
+
+// Gradle application plugin
+mainClassName = "com.fussen.nlp.ui.MainGUI"
+
+// Jar creation
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Fussen NLP',
+                   'Implementation-Version': version,
+		   'Main-Class': 'com.fussen.nlp.ui.MainGUI'
+    }
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
+
+// Add src-extra build target
+sourceSets {
+  main {
+    java.srcDirs = ['src/']
+    resources.srcDirs = ['src/']
+  }
+}
+
+task listDeps {
+    doLast {
+        configurations.compile.each { File file -> println file.name }
+    }
+}
+
+dependencies {
+  compile fileTree(dir: 'lib', include: '*.jar')
+  testCompile fileTree(dir: 'liblocal', include: '*.jar')
+  testCompile group: 'junit', name: 'junit', version:'4.4'
+}
+
+// Eclipse plugin setup
+eclipse {
+  classpath {
+    defaultOutputDir = file('bin/')
+    file {
+      beforeMerged { classpath ->
+        classpath.entries.removeAll { entry -> entry.kind == 'lib' }
+      }
+    }
+  }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.1'
+}

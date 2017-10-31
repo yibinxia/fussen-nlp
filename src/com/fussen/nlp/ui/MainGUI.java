@@ -1,38 +1,49 @@
+package com.fussen.nlp.ui;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Point;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
-public class mainGUI extends JFrame {
+import com.fussen.nlp.util.*;
+
+public class MainGUI extends JFrame {
 
 	public static void main(String[] args) {
+		/*
+		String[] strs = {"are", "bat", "ear", "code", "tab", "era"};
+		System.out.println(StringUtil.groupAnagrams(strs));
+		*/
+		
 		try {
-			javax.swing.UIManager.LookAndFeelInfo[] installedLAFs=javax.swing.UIManager.getInstalledLookAndFeels();
-			for (int idx=0; idx<installedLAFs.length; idx++) {
-				if ("Nimbus".equals(installedLAFs[idx].getName())) {
-					javax.swing.UIManager.setLookAndFeel(installedLAFs[idx].getClassName());
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
 					break;
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(mainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(MainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(mainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(MainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(mainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(MainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(mainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(MainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				new mainGUI().setVisible(true);
+				new MainGUI().setVisible(true);
 			}
 		});
+		
 	}
 	
-	public mainGUI() {
+	public MainGUI() {
 		initComponents();
 		getRootPane().setDefaultButton(analysisButton);
 		pack();
@@ -40,7 +51,7 @@ public class mainGUI extends JFrame {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = getSize();
 		setLocation(new Point((screenSize.width - frameSize.width) /2,
-							(screenSize.height - frameSize.width) /2));
+							 (screenSize.height - frameSize.width) /2));
 	}
 	
 	private void initComponents() {
@@ -59,15 +70,15 @@ public class mainGUI extends JFrame {
 		analysisButton = new javax.swing.JButton();
 		synthesisButton = new javax.swing.JButton();
 		
-		setTitle("Synintent");
+		setTitle("SynIntent");
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent evt) {
 				exitForm(evt);
 			}
 		});
 		mainPanel.setLayout(new java.awt.GridBagLayout());
-		mainPanel.setBorder(new javax.swing.border.EmptyBorder(new java.awt.Insets(12, 12, 12, 12)));
-		mainPanel.setMinimumSize(new java.awt.Dimension(297, 200));
+		mainPanel.setBorder(new javax.swing.border.EmptyBorder(new java.awt.Insets(12, 12, 20, 20)));
+		//mainPanel.setMinimumSize(new java.awt.Dimension(200, 200));
 		
 		inputLabel.setText("Input Sentence:");
 		inputLabel.setLabelFor(inputSentence);
@@ -77,12 +88,13 @@ public class mainGUI extends JFrame {
 		gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 6);
 		mainPanel.add(inputLabel, gridBagConstraints);
 		
-		inputSentence.setColumns(20);
+		inputSentence.setColumns(40);
 		inputSentence.setEditable(true);
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
 		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.weightx = 1.0;
+		//gridBagConstraints.weighty = 1.0;
 		gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
 		mainPanel.add(inputSentence, gridBagConstraints);
 		
@@ -94,12 +106,13 @@ public class mainGUI extends JFrame {
 		gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 6);
 		mainPanel.add(resultsLabel, gridBagConstraints);
 
-		resultsField.setColumns(20);
+		resultsField.setColumns(40);
 		resultsField.setEditable(false);
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
 		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.weightx = 1.0;
+		//gridBagConstraints.weighty = 1.0;
 		gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
 		mainPanel.add(resultsField, gridBagConstraints);
 
@@ -190,7 +203,8 @@ public class mainGUI extends JFrame {
 	private void synthesisActionPerformed(java.awt.event.ActionEvent evt) {
 		// update result text window
 		String inputString = inputSentence.getText();
-		resultsField.setText(inputString);
+		String newstr = StringUtil.reverseSentence(inputString);
+		resultsField.setText(newstr);
 	}
 
 	private javax.swing.JPanel mainPanel;

@@ -1,3 +1,5 @@
+package com.fussen.nlp.ui;
+
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
