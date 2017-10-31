@@ -146,7 +146,7 @@ public class TrieWords {
 	}
 	
 	public String[] getTopKFrequentWords(int k) {
-		Queue<Node> nodes = new PriorityQueue<>(size, new Comparator<Node>() {
+		Queue<Node> nodes = new PriorityQueue<Node>(size, new Comparator<Node>() {
 			public int compare(Node n1, Node n2) {
 				if (n2.freq == n1.freq) {
 					return n1.str.compareTo(n2.str);

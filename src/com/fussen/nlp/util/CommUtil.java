@@ -156,7 +156,7 @@ public class CommUtil {
 		}
 		*/
 		// use hash with key = nums[index] & value = index
-		Map<Integer, Integer> mValueIdx = new HashMap<>();
+		Map<Integer, Integer> mValueIdx = new HashMap<Integer, Integer>();
 		for (int i = 0; i < nums.length; i++) {
 			int complement = target - nums[i];
 			if (mValueIdx.containsKey(complement)) {

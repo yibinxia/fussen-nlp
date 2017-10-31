@@ -60,7 +60,7 @@ public class StringUtil {
 	public static int lengthOfLongestSubString(String s) {
 		int n = s.length();
 		int len = 0;
-		Map<Character, Integer> mCharIdx = new HashMap<>();
+		Map<Character, Integer> mCharIdx = new HashMap<Character, Integer>();
 		for (int i = 0, j = 0; j < n; j++) {
 			Character key = s.charAt(j);
 			if (mCharIdx.containsKey(key)) {
@@ -121,7 +121,7 @@ public class StringUtil {
 	}
 	*/
 	public static List<List<String>> groupAnagrams(String[] strs) {
-		Map<String, List<String>> m = new HashMap<>();
+		Map<String, List<String>> m = new HashMap<String, List<String>>();
 		/*
 		// brute force
 		for (int i = 0; i < strs.length; i++) {
